@@ -10,4 +10,8 @@
   function multiply(...numbers) {
     return numbers.reduce((product, number) => product * number, 1);
   }
+
+  function divide(...numbers) {
+    return numbers.reduce((quotient, number) => quotient / number);
+  }
 })();
