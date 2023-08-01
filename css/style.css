@@ -37,11 +37,12 @@ body {
 
 .button-column {
   display: flex;
+
   flex-direction: column;
+  width: calc(100% / 4);
 }
 
 .button {
   font-family: "Audiowide", sans-serif;
   color: purple;
-  flex: 1;
 }
