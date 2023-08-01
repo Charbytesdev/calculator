@@ -20,6 +20,7 @@ body {
   border-radius: 1em;
   background-color: black;
 }
+
 .button-column {
   display: flex;
   flex-direction: column;
