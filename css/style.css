@@ -56,6 +56,14 @@ body {
   width: 5rem;
   height: 5rem;
   font-size: 2.7rem;
+  border: 0.01em white solid;
   border-radius: 1rem;
   background-color: #a12222;
+  transition-duration: 0.15s;
+  cursor: pointer;
+}
+
+button:hover {
+  box-shadow: 0 0 1em red;
+  transform: scale(1.1);
 }
