@@ -50,7 +50,7 @@ body {
 .button {
   font-family: "Audiowide", sans-serif;
   color: purple;
-  min-width: 5rem;
-  min-height: 5rem;
+  width: 5rem;
+  height: 5rem;
   font-size: 3rem;
 }
