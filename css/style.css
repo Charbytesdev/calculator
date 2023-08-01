@@ -29,6 +29,11 @@ body {
   background-color: black;
 }
 
+#screen-container {
+  min-height: 10rem;
+  font-size: 3rem;
+}
+
 #button-container {
   display: flex;
   align-items: center;
