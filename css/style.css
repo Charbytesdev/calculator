@@ -48,9 +48,12 @@ body {
 }
 
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: "Audiowide", sans-serif;
   color: purple;
   width: 5rem;
   height: 5rem;
-  font-size: 3rem;
+  font-size: 2.7rem;
 }
