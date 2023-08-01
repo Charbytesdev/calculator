@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "AudioWide";
+  font-weight: 400;
+  src: url("../assets/fonts/audiowide-v16-latin-regular.woff2") format("woff2");
+}
+
 html,
 body {
   height: 100%;
@@ -6,6 +12,7 @@ body {
 }
 
 body {
+  font-family: "Rye", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,5 +40,7 @@ body {
 }
 
 .button {
+  font-family: "Audiowide", sans-serif;
+  color: purple;
   flex: 1;
 }
