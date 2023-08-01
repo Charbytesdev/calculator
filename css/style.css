@@ -41,7 +41,16 @@ body {
   text-shadow: -1px 0 #eb1362, 0 1px #eb1362, 1px 0 #eb1362, 0 -1px #eb1362;
   min-height: 10rem;
   width: 100%;
-  font-size: 3rem;
+  font-size: 4em;
+}
+
+#screen-history {
+  font-size: 0.5em;
+  margin: 0.2em 0.6em;
+}
+
+#screen-output {
+  margin: 0.3em;
 }
 
 #button-container {
