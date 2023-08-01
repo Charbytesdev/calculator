@@ -52,8 +52,10 @@ body {
   justify-content: center;
   align-items: center;
   font-family: "Audiowide", sans-serif;
-  color: purple;
+  color: white;
   width: 5rem;
   height: 5rem;
   font-size: 2.7rem;
+  border-radius: 1rem;
+  background-color: #a12222;
 }
