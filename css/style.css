@@ -16,6 +16,9 @@ body {
   display: flex;
   align-items: center;
   max-width: 20rem;
+  padding: 1em;
+  border-radius: 1em;
+  background-color: black;
 }
 .button-column {
   display: flex;
