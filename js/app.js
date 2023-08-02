@@ -7,8 +7,8 @@
   const screenOutput = document.querySelector("#screen-output");
   const operators = document.querySelectorAll(".operator");
   const equals = document.getElementById("equals");
-
   const ac = document.getElementById("ac");
+  const backspace = document.getElementById("backspace");
 
   numbers.forEach((number) =>
     number.addEventListener("click", () =>
@@ -30,6 +30,7 @@
   });
 
   ac.addEventListener("click", clearScreen);
+  backspace.addEventListener("click", UndoScreen);
 
   function add(...numbers) {
     return numbers.reduce((sum, number) => sum + number, 0);
@@ -87,5 +88,10 @@
 
   function clearScreen() {
     screenOutput.textContent = "0";
+  }
+
+  function UndoScreen() {
+    screenOutput.textContent = screenOutput.textContent.slice(0, -1);
+    if (screenOutput.textContent === "") screenOutput.textContent = 0;
   }
 })();
