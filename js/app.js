@@ -1,7 +1,14 @@
 (function () {
+  const numbers = document.querySelectorAll(".number");
+  const screenOutput = document.querySelector("#screen-output");
+
   let firstNumber = NaN;
   let secondNumber = NaN;
   let operator = null;
+
+  numbers.forEach((number) =>
+    number.addEventListener("click", () => showOnScreen(number.textContent))
+  );
 
   function add(...numbers) {
     return numbers.reduce((sum, number) => sum + number, 0);
@@ -30,5 +37,9 @@
       case "/":
         return divide(firstNumber, secondNumber);
     }
+  }
+
+  function showOnScreen(output) {
+    screenOutput.textContent += output;
   }
 })();
