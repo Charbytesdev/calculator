@@ -1,6 +1,6 @@
 (function () {
   let firstNumber = NaN;
-  let operator = null;
+  let binaryOperator = null;
   let secondNumber = NaN;
 
   const numbers = document.querySelectorAll(".number");
@@ -16,6 +16,7 @@
     operator.addEventListener("click", () => {
       showOnScreen(operator.textContent);
       setFirstNumber(operator.textContent);
+      setOperator(operator.textContent);
     })
   );
 
@@ -53,6 +54,11 @@
   function setFirstNumber(operator) {
     firstNumber = screenOutput.textContent.split(operator)[0];
     console.log(firstNumber);
+  }
+
+  function setOperator(operator) {
+    binaryOperator = operator;
+    console.log(binaryOperator);
   }
 
   function showOnScreen(output) {
