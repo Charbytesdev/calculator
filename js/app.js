@@ -5,20 +5,24 @@
 
   const numbers = document.querySelectorAll(".number");
   const screenOutput = document.querySelector("#screen-output");
-  const operations = document.querySelectorAll(".operator");
+  const operators = document.querySelectorAll(".operator");
+  const equals = document.getElementById("equals");
+
   const ac = document.getElementById("ac");
 
   numbers.forEach((number) =>
     number.addEventListener("click", () => showOnScreen(number.textContent))
   );
 
-  operations.forEach((operator) =>
+  operators.forEach((operator) =>
     operator.addEventListener("click", () => {
       showOnScreen(operator.textContent);
-      setFirstNumber(operator.textContent);
       setOperator(operator.textContent);
+      setFirstNumber();
     })
   );
+
+  equals.addEventListener("click", setSecondNumber);
 
   ac.addEventListener("click", clearScreen);
 
@@ -51,14 +55,19 @@
     }
   }
 
-  function setFirstNumber(operator) {
-    firstNumber = screenOutput.textContent.split(operator)[0];
+  function setFirstNumber() {
+    firstNumber = screenOutput.textContent.split(binaryOperator)[0];
     console.log(firstNumber);
   }
 
   function setOperator(operator) {
     binaryOperator = operator;
     console.log(binaryOperator);
+  }
+
+  function setSecondNumber() {
+    secondNumber = screenOutput.textContent.split(binaryOperator)[1];
+    console.log(secondNumber);
   }
 
   function showOnScreen(output) {
