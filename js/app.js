@@ -1,6 +1,7 @@
 (function () {
   const numbers = document.querySelectorAll(".number");
   const screenOutput = document.querySelector("#screen-output");
+  const ac = document.getElementById("ac");
 
   let firstNumber = NaN;
   let secondNumber = NaN;
@@ -9,6 +10,8 @@
   numbers.forEach((number) =>
     number.addEventListener("click", () => showOnScreen(number.textContent))
   );
+
+  ac.addEventListener("click", clearScreen);
 
   function add(...numbers) {
     return numbers.reduce((sum, number) => sum + number, 0);
@@ -40,6 +43,11 @@
   }
 
   function showOnScreen(output) {
+    if (screenOutput.textContent === "0") screenOutput.textContent = "";
     screenOutput.textContent += output;
+  }
+
+  function clearScreen() {
+    screenOutput.textContent = "0";
   }
 })();
