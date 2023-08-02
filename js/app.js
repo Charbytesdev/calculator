@@ -1,14 +1,19 @@
 (function () {
+  let firstNumber = NaN;
+  let operator = null;
+  let secondNumber = NaN;
+
   const numbers = document.querySelectorAll(".number");
   const screenOutput = document.querySelector("#screen-output");
+  const operations = document.querySelectorAll(".operator");
   const ac = document.getElementById("ac");
-
-  let firstNumber = NaN;
-  let secondNumber = NaN;
-  let operator = null;
 
   numbers.forEach((number) =>
     number.addEventListener("click", () => showOnScreen(number.textContent))
+  );
+
+  operations.forEach((operator) =>
+    operator.addEventListener("click", () => showOnScreen(operator.textContent))
   );
 
   ac.addEventListener("click", clearScreen);
