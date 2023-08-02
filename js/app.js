@@ -11,18 +11,23 @@
   const ac = document.getElementById("ac");
 
   numbers.forEach((number) =>
-    number.addEventListener("click", () => showOnScreen(number.textContent))
+    number.addEventListener("click", () =>
+      showInputOnScreen(number.textContent)
+    )
   );
 
   operators.forEach((operator) =>
     operator.addEventListener("click", () => {
-      showOnScreen(operator.textContent);
+      showInputOnScreen(operator.textContent);
       setOperator(operator.textContent);
       setFirstNumber();
     })
   );
 
-  equals.addEventListener("click", setSecondNumber);
+  equals.addEventListener("click", () => {
+    setSecondNumber();
+    operate(+firstNumber, binaryOperator.trim(), +secondNumber);
+  });
 
   ac.addEventListener("click", clearScreen);
 
@@ -43,34 +48,39 @@
   }
 
   function operate(firstNumber, operator, secondNumber) {
-    switch (operator) {
+    switch (operator.trim()) {
       case "+":
-        return add(firstNumber, secondNumber);
+        showResultOnScreen(add(firstNumber, secondNumber));
+        break;
       case "-":
-        return subtract(firstNumber, secondNumber);
-      case "*":
-        return multiply(firstNumber, secondNumber);
+        showResultOnScreen(subtract(firstNumber, secondNumber));
+        break;
+      case "X":
+        showResultOnScreen(multiply(firstNumber, secondNumber));
+        break;
       case "/":
-        return divide(firstNumber, secondNumber);
+        showResultOnScreen(divide(firstNumber, secondNumber));
+        break;
     }
   }
 
   function setFirstNumber() {
     firstNumber = screenOutput.textContent.split(binaryOperator)[0];
-    console.log(firstNumber);
   }
 
   function setOperator(operator) {
     binaryOperator = operator;
-    console.log(binaryOperator);
   }
 
   function setSecondNumber() {
     secondNumber = screenOutput.textContent.split(binaryOperator)[1];
-    console.log(secondNumber);
   }
 
-  function showOnScreen(output) {
+  function showResultOnScreen(result) {
+    screenOutput.textContent = result;
+  }
+
+  function showInputOnScreen(output) {
     if (screenOutput.textContent === "0") screenOutput.textContent = "";
     screenOutput.textContent += output;
   }
