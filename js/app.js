@@ -13,7 +13,10 @@
   );
 
   operations.forEach((operator) =>
-    operator.addEventListener("click", () => showOnScreen(operator.textContent))
+    operator.addEventListener("click", () => {
+      showOnScreen(operator.textContent);
+      setFirstNumber(operator.textContent);
+    })
   );
 
   ac.addEventListener("click", clearScreen);
@@ -45,6 +48,11 @@
       case "/":
         return divide(firstNumber, secondNumber);
     }
+  }
+
+  function setFirstNumber(operator) {
+    firstNumber = screenOutput.textContent.split(operator)[0];
+    console.log(firstNumber);
   }
 
   function showOnScreen(output) {
