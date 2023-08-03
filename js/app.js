@@ -40,7 +40,6 @@
 
   function appendSecondNumber(number) {
     secondNumber += number;
-    console.log(secondNumber);
   }
 
   function displayNumber(number) {
@@ -49,30 +48,29 @@
   }
 
   function setNumber(number) {
+    displayNumber(number);
     if (!binaryOperator) {
       appendFirstNumber(number);
     } else {
       appendSecondNumber(number);
     }
-    displayNumber(number);
-  }
-
-  function isLastCharacterOperator() {
-    operatorsArray = [...operators];
-    operatorsArray.some((operator) => operator === getDisplay().slice(-1));
   }
 
   function displayOperator(operator) {
-    if (getDisplay() === "0" || isLastCharacterOperator()) return;
-    appendDisplay(operator);
+    if (getDisplay() === "0") return;
+    else if (binaryOperator && getDisplay().includes(binaryOperator)) {
+      setDisplay(getDisplay().replace(binaryOperator, operator));
+    } else {
+      appendDisplay(operator);
+    }
   }
 
   function operate(operator) {
     if (firstNumber && secondNumber) {
       calculate();
     }
-    setBinaryOperator(operator);
     displayOperator(operator);
+    setBinaryOperator(operator);
   }
 
   function add(...numbers) {
