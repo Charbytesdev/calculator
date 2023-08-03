@@ -15,59 +15,12 @@
   );
 
   operators.forEach((operator) =>
-    operator.addEventListener("click", () =>
-      operate(operator.textContent.trim())
-    )
+    operator.addEventListener("click", () => operate(operator.textContent))
   );
 
-  function operate(operator) {
-    if (firstNumber && secondNumber) {
-      calculate();
-    }
-    displayOperator(operator);
-    setBinaryOperator(operator);
-  }
-
   equals.addEventListener("click", calculate);
-
   ac.addEventListener("click", clearScreen);
   backspace.addEventListener("click", undoLastCharacter);
-
-  function add(...numbers) {
-    return numbers.reduce((sum, number) => sum + number);
-  }
-
-  function subtract(...numbers) {
-    return numbers.reduce((difference, number) => difference - number);
-  }
-
-  function multiply(...numbers) {
-    return numbers.reduce((product, number) => product * number);
-  }
-
-  function divide(...numbers) {
-    return numbers.reduce((quotient, number) => quotient / number);
-  }
-
-  function calculate() {
-    if (!firstNumber || !binaryOperator || !secondNumber) return;
-    x = +firstNumber;
-    y = +secondNumber;
-    switch (binaryOperator) {
-      case "+":
-        showResultOnScreen(add(x, y));
-        break;
-      case "-":
-        showResultOnScreen(subtract(x, y));
-        break;
-      case "x":
-        showResultOnScreen(multiply(x, y));
-        break;
-      case "/":
-        showResultOnScreen(divide(x, y));
-        break;
-    }
-  }
 
   function setFirstNumber(number) {
     firstNumber = number;
@@ -90,6 +43,11 @@
     console.log(secondNumber);
   }
 
+  function displayNumber(number) {
+    if (getDisplay() === "0") setDisplay("");
+    appendDisplay(number);
+  }
+
   function setNumber(number) {
     if (!binaryOperator) {
       appendFirstNumber(number);
@@ -97,18 +55,6 @@
       appendSecondNumber(number);
     }
     displayNumber(number);
-  }
-
-  function showResultOnScreen(result) {
-    setDisplay(result);
-    setFirstNumber(result);
-    setSecondNumber("");
-    setBinaryOperator("");
-  }
-
-  function displayNumber(number) {
-    if (getDisplay() === "0") setDisplay("");
-    appendDisplay(number);
   }
 
   function isLastCharacterOperator() {
@@ -119,6 +65,57 @@
   function displayOperator(operator) {
     if (getDisplay() === "0" || isLastCharacterOperator()) return;
     appendDisplay(operator);
+  }
+
+  function operate(operator) {
+    if (firstNumber && secondNumber) {
+      calculate();
+    }
+    setBinaryOperator(operator);
+    displayOperator(operator);
+  }
+
+  function add(...numbers) {
+    return numbers.reduce((sum, number) => sum + number);
+  }
+
+  function subtract(...numbers) {
+    return numbers.reduce((difference, number) => difference - number);
+  }
+
+  function multiply(...numbers) {
+    return numbers.reduce((product, number) => product * number);
+  }
+
+  function divide(...numbers) {
+    return numbers.reduce((quotient, number) => quotient / number);
+  }
+
+  function displayResult(result) {
+    setDisplay(result);
+    setFirstNumber(result);
+    setSecondNumber("");
+    setBinaryOperator("");
+  }
+
+  function calculate() {
+    if (!firstNumber || !binaryOperator || !secondNumber) return;
+    x = +firstNumber;
+    y = +secondNumber;
+    switch (binaryOperator.trim()) {
+      case "+":
+        displayResult(add(x, y));
+        break;
+      case "-":
+        displayResult(subtract(x, y));
+        break;
+      case "x":
+        displayResult(multiply(x, y));
+        break;
+      case "/":
+        displayResult(divide(x, y));
+        break;
+    }
   }
 
   function getDisplay() {
@@ -133,15 +130,15 @@
     screenOutput.textContent += content;
   }
 
+  function undoLastCharacter() {
+    setDisplay(getDisplay().slice(0, -1));
+    if (getDisplay() === "") setDisplay("0");
+  }
+
   function clearScreen() {
     setDisplay("0");
     setFirstNumber("");
-    setSecondNUmber("");
+    setSecondNumber("");
     setBinaryOperator("");
-  }
-
-  function undoLastCharacter() {
-    setDisplay(screenOutput.textContent.slice(0, -1));
-    if (getDisplay() === "") setDisplay("0");
   }
 })();
