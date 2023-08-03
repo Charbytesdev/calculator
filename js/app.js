@@ -9,7 +9,7 @@
   const equals = document.getElementById("equals");
   const ac = document.getElementById("ac");
   const backspace = document.getElementById("backspace");
-
+  const decimalPoint = document.getElementById("decimal-point");
   numbers.forEach((number) =>
     number.addEventListener("click", () => setNumber(number.textContent))
   );
@@ -23,6 +23,7 @@
   equals.addEventListener("click", calculate);
   ac.addEventListener("click", clearScreen);
   backspace.addEventListener("click", undoLastCharacter);
+  decimalPoint.addEventListener("click", setDecimalPoint);
 
   function setFirstNumber(number) {
     firstNumber = number;
@@ -42,6 +43,22 @@
 
   function appendSecondNumber(number) {
     secondNumber += number;
+  }
+
+  function setDecimalPoint() {
+    if (firstNumber.includes(".") && secondNumber.includes(".")) {
+      return;
+    } else if (!binaryOperator && !firstNumber.includes(".")) {
+      appendFirstNumber(".");
+      if (getDisplay() === "0") {
+        setDisplay("0.");
+      } else {
+        appendDisplay(".");
+      }
+    } else if (binaryOperator && !secondNumber.includes(".")) {
+      appendSecondNumber(".");
+      appendDisplay(".");
+    }
   }
 
   function displayNumber(number) {
@@ -92,16 +109,19 @@
   }
 
   function displayResult(result) {
-    setDisplay(result.toString());
-    setFirstNumber(result.toString());
+    result = parseFloat(result.toFixed(2)).toString();
+    setDisplay(result);
+    setFirstNumber(result);
     setSecondNumber("");
     setBinaryOperator("");
   }
 
   function calculate() {
     if (!firstNumber || !binaryOperator || !secondNumber) return;
+    if (secondNumber === ".") return;
     x = +firstNumber;
     y = +secondNumber;
+
     switch (binaryOperator.trim()) {
       case "+":
         displayResult(add(x, y));
@@ -132,9 +152,7 @@
 
   function undoLastCharacter() {
     let lastCharacter = getDisplay().slice(-1);
-    if (
-      isNaN(lastCharacter) /*|| lastCharacter === "" || lastCharacter === "."*/
-    ) {
+    if (isNaN(lastCharacter) && lastCharacter != ".") {
       binaryOperator = "";
     } else if (firstNumber && !secondNumber) {
       firstNumber = firstNumber.slice(0, -1);
@@ -143,9 +161,6 @@
     }
     setDisplay(getDisplay().slice(0, -1));
     if (getDisplay() === "") setDisplay("0");
-    console.log(firstNumber);
-    console.log(secondNumber);
-    console.log(binaryOperator);
   }
 
   function clearScreen() {
