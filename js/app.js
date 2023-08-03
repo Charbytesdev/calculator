@@ -15,7 +15,9 @@
   );
 
   operators.forEach((operator) =>
-    operator.addEventListener("click", () => operate(operator.textContent))
+    operator.addEventListener("click", () =>
+      operate(operator.textContent.trim())
+    )
   );
 
   equals.addEventListener("click", calculate);
@@ -90,8 +92,8 @@
   }
 
   function displayResult(result) {
-    setDisplay(result);
-    setFirstNumber(result);
+    setDisplay(result.toString());
+    setFirstNumber(result.toString());
     setSecondNumber("");
     setBinaryOperator("");
   }
@@ -129,8 +131,21 @@
   }
 
   function undoLastCharacter() {
+    let lastCharacter = getDisplay().slice(-1);
+    if (
+      isNaN(lastCharacter) /*|| lastCharacter === "" || lastCharacter === "."*/
+    ) {
+      binaryOperator = "";
+    } else if (firstNumber && !secondNumber) {
+      firstNumber = firstNumber.slice(0, -1);
+    } else if (firstNumber && secondNumber) {
+      secondNumber = secondNumber.slice(0, -1);
+    }
     setDisplay(getDisplay().slice(0, -1));
     if (getDisplay() === "") setDisplay("0");
+    console.log(firstNumber);
+    console.log(secondNumber);
+    console.log(binaryOperator);
   }
 
   function clearScreen() {
