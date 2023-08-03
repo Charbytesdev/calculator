@@ -11,9 +11,7 @@
   const backspace = document.getElementById("backspace");
 
   numbers.forEach((number) =>
-    number.addEventListener("click", () =>
-      showInputOnScreen(number.textContent)
-    )
+    number.addEventListener("click", () => displayNumber(number.textContent))
   );
 
   operators.forEach((operator) =>
@@ -29,7 +27,7 @@
       setSecondNumber(binaryOperator);
       calculate(+firstNumber, binaryOperator, +secondNumber);
     }
-    showInputOnScreen(operator);
+    displayOperator(operator);
     setBinaryOperator(operator);
   }
 
@@ -40,7 +38,7 @@
   });
 
   ac.addEventListener("click", clearScreen);
-  backspace.addEventListener("click", undoScreen);
+  backspace.addEventListener("click", undoLastCharacter);
 
   function add(...numbers) {
     return numbers.reduce((sum, number) => sum + number);
@@ -87,31 +85,48 @@
   }
 
   function setSecondNumber(operator) {
-    secondNumber = screenOutput.textContent.split(operator)[1];
+    secondNumber = getDisplay().split(operator)[1];
     console.log(secondNumber);
   }
 
   function showResultOnScreen(result) {
-    screenOutput.textContent = result;
+    setDisplay(result);
     firstNumber = result;
     secondNumber = NaN;
     binaryOperator = null;
   }
 
-  function showInputOnScreen(output) {
-    if (screenOutput.textContent === "0") screenOutput.textContent = "";
-    screenOutput.textContent += output;
+  function displayNumber(number) {
+    if (getDisplay() === "0") setDisplay("");
+    appendDisplay(number);
+  }
+
+  function displayOperator(operator) {
+    if (getDisplay() === "0") return;
+    appendDisplay(operator);
+  }
+
+  function getDisplay() {
+    return screenOutput.textContent;
+  }
+
+  function setDisplay(content) {
+    screenOutput.textContent = content;
+  }
+
+  function appendDisplay(content) {
+    screenOutput.textContent += content;
   }
 
   function clearScreen() {
-    screenOutput.textContent = "0";
+    setDisplay("0");
     firstNumber = NaN;
     secondNumber = NaN;
     binaryOperator = null;
   }
 
-  function undoScreen() {
-    screenOutput.textContent = screenOutput.textContent.slice(0, -1);
-    if (screenOutput.textContent === "") screenOutput.textContent = 0;
+  function undoLastCharacter() {
+    setDisplay(screenOutput.textContent.slice(0, -1));
+    if (getDisplay() === "") setDisplay("0");
   }
 })();
