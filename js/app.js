@@ -34,8 +34,9 @@
   }
 
   equals.addEventListener("click", () => {
-    setSecondNumber();
-    calculate(+firstNumber, binaryOperator, +secondNumber);
+    setSecondNumber(binaryOperator);
+    calculate();
+    firstNumber = null;
   });
 
   ac.addEventListener("click", clearScreen);
