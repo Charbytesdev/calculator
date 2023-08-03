@@ -17,20 +17,29 @@
   );
 
   operators.forEach((operator) =>
-    operator.addEventListener("click", () => {
-      showInputOnScreen(operator.textContent);
-      setOperator(operator.textContent);
-      if (!firstNumber) setFirstNumber();
-      else {
-        setSecondNumber();
-      }
-    })
+    operator.addEventListener("click", () =>
+      operate(operator.textContent.trim())
+    )
   );
 
-  equals.addEventListener("click", setSecondNumber);
+  function operate(operator) {
+    if (!firstNumber) {
+      setFirstNumber(operator);
+    } else {
+      setSecondNumber(binaryOperator);
+      calculate(+firstNumber, binaryOperator, +secondNumber);
+    }
+    showInputOnScreen(operator);
+    setBinaryOperator(operator);
+  }
+
+  equals.addEventListener("click", () => {
+    setSecondNumber();
+    calculate(+firstNumber, binaryOperator, +secondNumber);
+  });
 
   ac.addEventListener("click", clearScreen);
-  backspace.addEventListener("click", UndoScreen);
+  backspace.addEventListener("click", undoScreen);
 
   function add(...numbers) {
     return numbers.reduce((sum, number) => sum + number);
@@ -48,8 +57,10 @@
     return numbers.reduce((quotient, number) => quotient / number);
   }
 
-  function operate(firstNumber, operator, secondNumber) {
-    switch (operator) {
+  function calculate() {
+    firstNumber = +firstNumber;
+    secondNumber = +secondNumber;
+    switch (binaryOperator) {
       case "+":
         showResultOnScreen(add(firstNumber, secondNumber));
         break;
@@ -66,21 +77,21 @@
   }
 
   function setFirstNumber() {
-    firstNumber = screenOutput.textContent.split(binaryOperator)[0];
+    firstNumber = screenOutput.textContent;
     console.log(firstNumber);
   }
 
-  function setOperator(operator) {
+  function setBinaryOperator(operator) {
     binaryOperator = operator;
   }
 
-  function setSecondNumber() {
-    secondNumber = screenOutput.textContent.split(binaryOperator)[1];
-    operate(+firstNumber, binaryOperator.trim(), +secondNumber);
+  function setSecondNumber(operator) {
+    secondNumber = screenOutput.textContent.split(operator)[1];
+    console.log(secondNumber);
   }
 
   function showResultOnScreen(result) {
-    screenOutput.textContent = result + binaryOperator;
+    screenOutput.textContent = result;
     firstNumber = result;
     secondNumber = NaN;
     binaryOperator = null;
@@ -98,7 +109,7 @@
     binaryOperator = null;
   }
 
-  function UndoScreen() {
+  function undoScreen() {
     screenOutput.textContent = screenOutput.textContent.slice(0, -1);
     if (screenOutput.textContent === "") screenOutput.textContent = 0;
   }
