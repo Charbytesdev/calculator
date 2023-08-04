@@ -94,21 +94,23 @@
     setBinaryOperator(operator);
   }
 
-  function add(...numbers) {
-    return numbers.reduce((sum, number) => sum + number);
+  function add(x, y) {
+    return x + y;
   }
 
-  function subtract(...numbers) {
-    return numbers.reduce((difference, number) => difference - number);
+  function subtract(x, y) {
+    return x - y;
   }
 
-  function multiply(...numbers) {
-    return numbers.reduce((product, number) => product * number);
+  function multiply(x, y) {
+    return x * y;
   }
 
-  function divide(...numbers) {
-    return numbers.reduce((quotient, number) => quotient / number);
+  function divide(x, y) {
+    return x / y;
   }
+
+
 
   function displayResult(result) {
     result = parseFloat(result.toFixed(2)).toString();
@@ -137,7 +139,7 @@
       case "/":
         displayResult(divide(x, y));
         break;
-    }
+
   }
 
   function getDisplay() {
