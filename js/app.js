@@ -76,8 +76,10 @@
   }
 
   function displayOperator(operator) {
-    if (getDisplay() === "0") return;
-    else if (binaryOperator && getDisplay().includes(binaryOperator)) {
+    if (getDisplay() === "0") {
+      setFirstNumber("0");
+    }
+    if (binaryOperator && getDisplay().includes(binaryOperator)) {
       setDisplay(getDisplay().replace(binaryOperator, operator));
     } else {
       appendDisplay(operator);
