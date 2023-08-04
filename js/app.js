@@ -110,7 +110,13 @@
     return x / y;
   }
 
+  function modulo(x, y) {
+    return x % y;
+  }
 
+  function power() {
+    return Math.pow(x, y);
+  }
 
   function displayResult(result) {
     result = parseFloat(result.toFixed(2)).toString();
@@ -139,7 +145,13 @@
       case "/":
         displayResult(divide(x, y));
         break;
-
+      case "%":
+        displayResult(modulo(x, y));
+        break;
+      case "^":
+        displayResult(power(x, y));
+        break;
+    }
   }
 
   function getDisplay() {
