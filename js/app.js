@@ -235,4 +235,17 @@
   function handleErrors() {
     if (getDisplay() === "ERROR!") clearScreen();
   }
+
+  //Audio
+  const buttonClickAudio = document.querySelector("#button-click-audio");
+  const allButtons = document.querySelectorAll("button");
+
+  function playSoundEffect(audio) {
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  allButtons.forEach((button) =>
+    button.addEventListener("click", () => playSoundEffect(buttonClickAudio))
+  );
 })();
