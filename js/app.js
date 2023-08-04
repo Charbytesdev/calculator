@@ -237,23 +237,63 @@
   }
 
   //Audio
+  let isMuted = false;
+
   const body = document.querySelector("body");
   const backgroundMusic = document.querySelector("#background-music");
   const buttonClickAudio = document.querySelector("#button-click-audio");
   const allButtons = document.querySelectorAll("button");
+  const soundButton = document.querySelector("#sound-button");
 
   body.addEventListener("click", playBackgroundMusic);
   allButtons.forEach((button) =>
     button.addEventListener("click", () => playSoundEffect(buttonClickAudio))
   );
 
+  soundButton.addEventListener("click", changeAudioState);
+
   function playBackgroundMusic() {
-    backgroundMusic.volume = 0.3;
-    backgroundMusic.play();
+    if (!isMuted) {
+      backgroundMusic.volume = 0.1;
+      backgroundMusic.play();
+    }
+  }
+
+  function pauseBackgroundMusic() {
+    backgroundMusic.pause();
   }
 
   function playSoundEffect(audio) {
     audio.currentTime = 0;
     audio.play();
+  }
+
+  function muteSoundEffect(audio) {
+    audio.muted = true;
+  }
+
+  function unmuteSoundEffect(audio) {
+    audio.muted = false;
+  }
+
+  function changeSoundImage(soundImage) {
+    if (soundImage.src.includes("/unmuted.png")) {
+      soundImage.src = soundImage.src.replace("/unmuted", "/muted");
+    } else {
+      soundImage.src = soundImage.src.replace("/muted", "/unmuted");
+    }
+  }
+
+  function changeAudioState() {
+    if (!isMuted) {
+      isMuted = true;
+      pauseBackgroundMusic();
+      muteSoundEffect(buttonClickAudio);
+    } else {
+      isMuted = false;
+      backgroundMusic.play();
+      unmuteSoundEffect(buttonClickAudio);
+    }
+    changeSoundImage(soundButton);
   }
 })();
