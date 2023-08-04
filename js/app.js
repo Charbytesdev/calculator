@@ -237,15 +237,23 @@
   }
 
   //Audio
+  const body = document.querySelector("body");
+  const backgroundMusic = document.querySelector("#background-music");
   const buttonClickAudio = document.querySelector("#button-click-audio");
   const allButtons = document.querySelectorAll("button");
+
+  body.addEventListener("click", playBackgroundMusic);
+  allButtons.forEach((button) =>
+    button.addEventListener("click", () => playSoundEffect(buttonClickAudio))
+  );
+
+  function playBackgroundMusic() {
+    backgroundMusic.volume = 0.3;
+    backgroundMusic.play();
+  }
 
   function playSoundEffect(audio) {
     audio.currentTime = 0;
     audio.play();
   }
-
-  allButtons.forEach((button) =>
-    button.addEventListener("click", () => playSoundEffect(buttonClickAudio))
-  );
 })();
