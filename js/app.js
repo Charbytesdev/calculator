@@ -51,23 +51,31 @@
   function setDecimalPoint() {
     if (firstNumber.includes(".") && secondNumber.includes(".")) {
       return;
-    } else if (!binaryOperator && !firstNumber.includes(".")) {
+    } else if (!firstNumber.includes(".") && !binaryOperator) {
       appendFirstNumber(".");
       if (getDisplay() === "0") {
         setDisplay("0.");
         setDisplayTmp("0.");
+        firstNumber = "0.";
       } else {
         appendDisplay(".");
         appendDisplayTmp(".");
       }
-    } else if (binaryOperator && !secondNumber.includes(".")) {
+    } else if (!secondNumber.includes(".") && binaryOperator) {
       appendSecondNumber(".");
+      appendDisplay(".");
     }
   }
 
   function displayNumber(number) {
-    if (getDisplay() === "0") setDisplay("");
-    if (getDisplayTmp() === "-") setDisplayTmp("");
+    if (getDisplay() === "0") {
+      setDisplay("");
+      setDisplayTmp("");
+    }
+    if (secondNumber === "0") {
+      secondNumber = "";
+      setDisplay(getDisplay().slice(0, -1));
+    }
     appendDisplay(number);
     appendDisplayTmp(number);
   }
@@ -190,7 +198,7 @@
       binaryOperator = "";
     } else if (!secondNumber) {
       firstNumber = firstNumber.slice(0, -1);
-      setDisplayTmp(firstNumber);
+      setDisplayTmp(getDisplay());
     } else if (secondNumber) {
       secondNumber = secondNumber.slice(0, -1);
       if (secondNumber) {
