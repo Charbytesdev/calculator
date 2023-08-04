@@ -49,6 +49,7 @@
   }
 
   function setDecimalPoint() {
+    handleErrors();
     if (firstNumber.includes(".") && secondNumber.includes(".")) {
       return;
     } else if (!firstNumber.includes(".") && !binaryOperator) {
@@ -81,6 +82,8 @@
   }
 
   function setNumber(number) {
+    handleErrors();
+
     displayNumber(number);
     if (!binaryOperator) {
       appendFirstNumber(number);
@@ -102,6 +105,7 @@
   }
 
   function operate(operator) {
+    handleErrors();
     if (firstNumber && secondNumber) {
       displayResult(calculate(), getDisplay());
     }
@@ -122,6 +126,11 @@
   }
 
   function divide(x, y) {
+    if (y === 0) {
+      setDisplay("ERROR!");
+      setDisplayTmp("ERROR!");
+      return "ERROR";
+    }
     return x / y;
   }
 
@@ -134,6 +143,9 @@
   }
 
   function displayResult(result, display) {
+    if (result === "ERROR!") {
+      return;
+    }
     result = parseFloat(result.toFixed(2)).toString();
     if (display === getDisplay()) {
       setDisplay(result);
@@ -218,5 +230,9 @@
     setFirstNumber("");
     setSecondNumber("");
     setBinaryOperator("");
+  }
+
+  function handleErrors() {
+    if (getDisplay() === "ERROR!") clearScreen();
   }
 })();
