@@ -45,18 +45,28 @@ body {
   border-radius: 0.5em;
   color: #eb1362;
   text-shadow: -1px 0 #eb1362, 0 1px #eb1362, 1px 0 #eb1362, 0 -1px #eb1362;
-  min-height: 10rem;
-  width: 100%;
+  height: 10rem;
+  width: 26rem;
   font-size: 4em;
+  overflow: hidden;
+}
+
+#screen-output {
+  margin: 0.3em;
+  height: 5rem;
 }
 
 #screen-tmp {
   font-size: 0.5em;
   margin: 0.2em 0.6em;
+  height: 4rem;
 }
 
-#screen-output {
-  margin: 0.3em;
+#screen-output,
+#screen-tmp {
+  height: rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #button-container {
